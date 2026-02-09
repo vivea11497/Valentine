@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Be My Valentine 💘</title>
+  <style>
+    :root{
+      --bg1:#ffe6f0;
+      --bg2:#fff7fb;
+      --card:#ffffffcc;
+      --text:#3a2b35;
+      --accent:#ff4d8d;
+      --accent2:#ff7aa8;
+      --shadow: 0 18px 40px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: radial-gradient(circle at 30% 20%, var(--bg2), var(--bg1));
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      overflow:hidden;
+    }
+    .hearts{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.45;
+      background-image:
+        radial-gradient(circle at 15% 25%, rgba(255,77,141,.18) 0 14px, transparent 15px),
+        radial-gradient(circle at 75% 20%, rgba(255,122,168,.14) 0 18px, transparent 19px),
+        radial-gradient(circle at 55% 70%, rgba(255,77,141,.12) 0 22px, transparent 23px),
+        radial-gradient(circle at 25% 75%, rgba(255,122,168,.10) 0 26px, transparent 27px);
+      filter: blur(0.2px);
+    }
+    .card{
+      width:min(520px, 92vw);
+      background:var(--card);
+      border:1px solid rgba(255,77,141,.18);
+      border-radius:26px;
+      box-shadow: var(--shadow);
+      padding:26px 22px 28px;
+      text-align:center;
+      position:relative;
+      backdrop-filter: blur(10px);
+    }
+    h1{
+      margin:12px 0 6px;
+      font-size:28px;
+      letter-spacing:.2px;
+    }
+    p{
+      margin:0 0 16px;
+      font-size:15px;
+      opacity:.85;
+    }
+
+    /* Cute round bear */
+    .bear-wrap{
+      width:220px;
+      height:220px;
+      margin:0 auto 10px;
+      position:relative;
+    }
+    .bear{
+      width:180px; height:180px;
+      background: #c58a5a;
+      border-radius: 50%;
+      position:absolute;
+      left:50%; top:50%;
+      transform:translate(-50%,-50%);
+      box-shadow: inset 0 -10px 0 rgba(0,0,0,.06);
+    }
+    .ear{
+      width:64px; height:64px;
+      background:#c58a5a;
+      border-radius:50%;
+      position:absolute;
+      top:-10px;
+      box-shadow: inset 0 -8px 0 rgba(0,0,0,.06);
+    }
+    .ear.left{ left:8px; }
+    .ear.right{ right:8px; }
+    .ear::after{
+      content:"";
+      width:38px; height:38px;
+      background:#e7b38a;
+      border-radius:50%;
+      position:absolute;
+      left:50%; top:50%;
+      transform:translate(-50%,-50%);
+    }
+    .face{
+      position:absolute; inset:0;
+    }
+    .eye{
+      width:14px; height:14px;
+      background:#2a1b1f;
+      border-radius:50%;
+      position:absolute;
+      top:78px;
+    }
+    .eye.left{ left:62px; }
+    .eye.right{ right:62px; }
+    .blush{
+      width:22px; height:14px;
+      background: rgba(255,77,141,.35);
+      border-radius: 999px;
+      position:absolute;
+      top:92px;
+      filter: blur(.2px);
+    }
+    .blush.left{ left:42px; }
+    .blush.right{ right:42px; }
+    .muzzle{
+      width:86px; height:64px;
+      background:#e7b38a;
+      border-radius: 50%;
+      position:absolute;
+      left:50%; top:100px;
+      transform:translateX(-50%);
+      box-shadow: inset 0 -6px 0 rgba(0,0,0,.06);
+    }
+    .nose{
+      width:18px; height:14px;
+      background:#2a1b1f;
+      border-radius: 0 0 10px 10px;
+      position:absolute;
+      left:50%; top:18px;
+      transform:translateX(-50%);
+    }
+    .smile{
+      position:absolute;
+      left:50%; top:34px;
+      width:38px; height:18px;
+      transform:translateX(-50%);
+      border:3px solid #2a1b1f;
+      border-top:0;
+      border-left-color:transparent;
+      border-right-color:transparent;
+      border-radius: 0 0 999px 999px;
+      opacity:.9;
+    }
+
+    /* Floating heart above bear */
+    .float-heart{
+      position:absolute;
+      left:50%; top:10px;
+      transform:translateX(-50%);
+      width:36px; height:36px;
+      background: var(--accent);
+      rotate: 45deg;
+      border-radius: 8px;
+      animation: bob 1.8s ease-in-out infinite;
+      box-shadow: 0 12px 25px rgba(255,77,141,.35);
+    }
+    .float-heart::before,
+    .float-heart::after{
+      content:"";
+      position:absolute;
+      width:36px; height:36px;
+      background: var(--accent);
+      border-radius:50%;
+    }
+    .float-heart::before{ left:-18px; top:0; }
+    .float-heart::after{ left:0; top:-18px; }
+
+    @keyframes bob{
+      0%,100%{ transform:translateX(-50%) translateY(0) rotate(45deg); }
+      50%{ transform:translateX(-50%) translateY(-10px) rotate(45deg); }
+    }
+
+    .btn-row{
+      margin-top:14px;
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    button{
+      border:0;
+      padding:12px 18px;
+      border-radius:14px;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:650;
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:active{ transform: scale(.98); }
+    #yesBtn{
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color:white;
+      box-shadow: 0 10px 22px rgba(255,77,141,.28);
+    }
+    #yesBtn:hover{ filter: brightness(1.03); }
+
+    /* The "No" button becomes a little mischievous */
+    #noBtn{
+      background:#ffffff;
+      color:#3a2b35;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+      position:absolute; /* We move it around the card */
+      left:50%;
+      top:calc(100% - 78px);
+      transform: translateX(110px);
+    }
+
+    .result{
+      margin-top:14px;
+      font-size:18px;
+      font-weight:700;
+      display:none;
+    }
+    .result.show{ display:block; }
+
+    .tiny{
+      font-size:12px;
+      opacity:.65;
+      margin-top:10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts"></div>
+
+  <div class="card" id="card">
+    <div class="bear-wrap">
+      <div class="float-heart"></div>
+      <div class="bear" aria-label="Cute bear">
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+
+        <div class="face">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="blush left"></div>
+          <div class="blush right"></div>
+
+          <div class="muzzle">
+            <div class="nose"></div>
+            <div class="smile"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+    <p>Don’t overthink it… the bear is waiting 🐻</p>
+
+    <div class="btn-row">
+      <button id="yesBtn">Yes 💖</button>
+      <!-- No button is positioned absolutely and moved by JS -->
+      <button id="noBtn" type="button">No 🙈</button>
+    </div>
+
+    <div class="result" id="result">YAY! 💞 See you on Valentine’s! 🥰</div>
+    <div class="tiny">Tip: share this link after hosting the file (steps below).</div>
+  </div>
+
+  <script>
+    const card = document.getElementById("card");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const result = document.getElementById("result");
+
+    // Place the "No" button inside the card bounds, away from edges
+    function moveNoButton() {
+      const pad = 14;
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - pad;
+      const maxY = cardRect.height - btnRect.height - pad;
+
+      // Keep it mostly in the lower half, so it feels like it's dodging
+      const minY = cardRect.height * 0.55;
+
+      const x = pad + Math.random() * Math.max(0, maxX - pad);
+      const y = Math.min(maxY, minY + Math.random() * Math.max(0, maxY - minY));
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Make "No" nearly impossible to click:
+    // - Runs away on hover/mousemove
+    // - Runs away on touchstart (mobile)
+    // - Also runs away if it gets focus via keyboard
+    ["mouseenter", "mousemove", "touchstart", "pointerdown", "focus"].forEach(evt => {
+      noBtn.addEventListener(evt, (e) => {
+        e.preventDefault();
+        moveNoButton();
+      }, { passive: false });
+    });
+
+    // If user somehow clicks "No", still move it and do nothing
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNoButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      result.classList.add("show");
+      yesBtn.textContent = "Yes 💞";
+      yesBtn.disabled = true;
+      noBtn.style.display = "none";
+    });
+
+    // Initial placement
+    moveNoButton();
+
+    // Reposition on resize so it stays in-bounds
+    window.addEventListener("resize", moveNoButton);
+  </script>
+</body>
+</html>
